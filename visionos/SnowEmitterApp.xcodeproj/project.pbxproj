@@ -13,6 +13,7 @@
 		767CEBBC2B582F6B000139AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767CEBBB2B582F6B000139AD /* AppDelegate.swift */; };
 		767CEBBE2B582F78000139AD /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767CEBBD2B582F78000139AD /* App.swift */; };
 		7699B88040F8A987B510C191 /* libPods-SnowEmitterApp-SnowEmitterAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-SnowEmitterApp-SnowEmitterAppTests.a */; };
+		76B792362B7A600900472693 /* SnowEmitterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76B792352B7A600900472693 /* SnowEmitterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-SnowEmitterApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnowEmitterApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		767CEBBB2B582F6B000139AD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = SnowEmitterApp/AppDelegate.swift; sourceTree = "<group>"; };
 		767CEBBD2B582F78000139AD /* App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = App.swift; path = SnowEmitterApp/App.swift; sourceTree = "<group>"; };
+		76B792352B7A600900472693 /* SnowEmitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowEmitterView.swift; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-SnowEmitterApp-SnowEmitterAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowEmitterApp-SnowEmitterAppTests.release.xcconfig"; path = "Target Support Files/Pods-SnowEmitterApp-SnowEmitterAppTests/Pods-SnowEmitterApp-SnowEmitterAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 				767CEBBD2B582F78000139AD /* App.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				76B792352B7A600900472693 /* SnowEmitterView.swift */,
 			);
 			name = SnowEmitterApp;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 			files = (
 				767CEBBC2B582F6B000139AD /* AppDelegate.swift in Sources */,
 				767CEBBE2B582F78000139AD /* App.swift in Sources */,
+				76B792362B7A600900472693 /* SnowEmitterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +553,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -577,6 +581,10 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DRN_FABRIC_ENABLED",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -584,8 +592,12 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+					"-DRN_FABRIC_ENABLED",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/@callstack/react-native-visionos";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 			};
 			name = Debug;
 		};
@@ -622,7 +634,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -642,6 +654,10 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DRN_FABRIC_ENABLED",
+				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -649,8 +665,12 @@
 					"-DFOLLY_USE_LIBCPP=1",
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
+					"-DRN_FABRIC_ENABLED",
 				);
+				OTHER_LDFLAGS = "$(inherited)  ";
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/@callstack/react-native-visionos";
 				SDKROOT = iphoneos;
+				USE_HERMES = true;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

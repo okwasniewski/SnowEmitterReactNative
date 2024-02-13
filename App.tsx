@@ -1,92 +1,63 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import {XR} from '@callstack/react-native-visionos';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {ScrollView, StyleSheet, Text, useColorScheme, View} from 'react-native';
-
 import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+  Alert,
+  Button,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+console.log('Dimensions: ', Dimensions.get('window'));
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(): React.JSX.Element {
+  const dimensions = useWindowDimensions();
+  const openImmersiveSpace = async () => {
+    try {
+      await XR.requestSession('SnowEmitter');
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert('Error', error.message);
+      }
+    }
+  };
+
+  const closeImmersiveSpace = async () => {
+    await XR.endSession();
+  };
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
+    <View style={styles.container}>
+      <Text style={styles.title}>
+        React native visionOS {dimensions.height} {dimensions.width}👋
       </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+      <Button
+        title="Open ImmersiveSpace"
+        onPress={openImmersiveSpace}
+        color="white"
+      />
+      <Button
+        title="Close ImmersiveSpace"
+        onPress={closeImmersiveSpace}
+        color="white"
+      />
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  return (
-    <ScrollView contentInsetAdjustmentBehavior="automatic">
-      <Header />
-      <View>
-        <Section title="Step One">
-          Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-          screen and then come back to see your edits.
-        </Section>
-        <Section title="See Your Changes">
-          <ReloadInstructions />
-        </Section>
-        <Section title="Debug">
-          <DebugInstructions />
-        </Section>
-        <Section title="Learn More">
-          Read the docs to discover what to do next:
-        </Section>
-        <LearnMoreLinks />
-      </View>
-    </ScrollView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  title: {
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 15,
   },
 });
 
